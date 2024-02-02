@@ -94,7 +94,7 @@ class ImageDataset(Dataset):
         super().__init__()
         self.resolution = resolution
         with bf.BlobFile(image_path, "rb") as f:
-            pil_image = Image.open(f)
+            pil_image = Image.open(f).resize((resolution, resolution), Image.LANCZOS).convert("RGB")
             pil_image.load()
         current_factor = scale_init * math.pow(scale_factor, stop_scale-current_scale)
         curr_w, curr_h = round(pil_image.size[0] * current_factor), round(pil_image.size[1] * current_factor)

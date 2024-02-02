@@ -267,6 +267,26 @@ class TrainLoop:
 
         dist.barrier()
 
+    '''
+    def samples(self, use_ddim=False, clip_denoised=False, model_kwargs={}):
+        sample_fn = (
+            self.diffusion.p_sample_loop if not use_ddim else self.diffusion.ddim_sample_loop
+        )
+        sample = sample_fn(
+            self.model,
+            (8, 3, 256, 256),
+            clip_denoised=clip_denoised,
+            model_kwargs=model_kwargs,
+            device=dist_util.dev(),
+            progress=True
+        )
+
+        os.makedirs(get_blob_logdir() + "/sample", exist_ok=True)
+        for i in range(sample.shape[0]):
+            tv.utils.save_image(sample[i] * 0.5 + 0.5, args.results_path + "scale_" + str(current_scale) + '/%d.png' % (i+8))
+    '''
+
+
 
 def parse_resume_step_from_filename(filename):
     """

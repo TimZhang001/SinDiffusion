@@ -1,0 +1,7 @@
+*.pyc
+OUTPUT
+RESULT
+mvtec
+*.pt
+*.txt
+__pycache__
